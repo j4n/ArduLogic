@@ -33,6 +33,8 @@
 #include <fcntl.h>
 #include <signal.h>
 
+typedef sig_t sighandler_t;
+
 static int fd;
 static struct termios tcattr_old;
 static const char *tts_name;
@@ -168,7 +170,8 @@ void readdata(const char *tts, bool autoprog)
 	tcattr.c_oflag = 0;
 	tcattr.c_cflag = CS8 | CREAD | CLOCAL;
 	tcattr.c_lflag = 0;
-	cfsetspeed(&tcattr, B2000000);
+	cfsetspeed(&tcattr, B115200);
+//	cfsetspeed(&tcattr, B2000000);
 	tcsetattr(fd, TCSAFLUSH, &tcattr);
 
 	char header[100 + TOTAL_PIN_NUM] = "..ARDULOGIC:";

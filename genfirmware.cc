@@ -102,10 +102,14 @@ static void gen_fifo(FILE *f, int num_bits)
 static void gen_serio(FILE *f)
 {
 	fprintf(f, "static void serio_setup() {\n");
-	fprintf(f, "	// Configure USART0 for 2MBaud\n");
+//	fprintf(f, "	// Configure USART0 for 2MBaud\n");
+//	fprintf(f, "	UBRR0H = 0;\n");
+//	fprintf(f, "	UBRR0L = 0;\n");
+//	fprintf(f, "	UCSR0A = _BV(U2X0);\n");
+	fprintf(f, "	// Configure USART0 for 115200 Baud \n");
 	fprintf(f, "	UBRR0H = 0;\n");
-	fprintf(f, "	UBRR0L = 0;\n");
-	fprintf(f, "	UCSR0A = _BV(U2X0);\n");
+	fprintf(f, "	UBRR0L = 8;\n");
+	fprintf(f, "	UCSR0A = 0;\n");
 	fprintf(f, "	UCSR0B = _BV(RXEN0) | _BV(TXEN0);\n");
 	fprintf(f, "	UCSR0C = _BV(UCSZ00) | _BV(UCSZ01);\n");
 	fprintf(f, "	PORTD |= _BV(1);\n");
